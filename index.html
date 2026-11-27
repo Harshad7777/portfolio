@@ -1,558 +1,1095 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Harshad Rakshe — Java Full Stack Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#F7F8FA;
-    --surface:#FFFFFF;
-    --surface-alt:#F0F2F6;
-    --ink:#14181F;
-    --muted:#5B6472;
-    --border:#E2E5EA;
-    --accent:#3D5AFE;
-    --accent-soft:rgba(61,90,254,0.08);
-    --get:#1565C0;
-    --get-soft:rgba(21,101,192,0.08);
-    --post:#2E7D32;
-    --post-soft:rgba(46,125,50,0.08);
-    --amber:#B7791F;
-    --amber-soft:rgba(183,121,31,0.10);
-    --radius:10px;
-    --sidebar-w:250px;
-  }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Harshad Rakshe - Portfolio | Java Full Stack Developer</title>
+  <meta content="Portfolio of Harshad Rakshe - Java Full Stack Developer specializing in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, MySQL, and responsive web technologies. Computer Engineering graduate from Jaihind College of Engineering." name="description">
+  <meta content="Harshad Rakshe, Java Full Stack Developer, Spring Boot Developer, Java Developer, REST APIs, Spring MVC, Spring JDBC, MySQL, HTML, CSS, Bootstrap, Portfolio, Pune, Sankalp Restaurant" name="keywords">
 
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none;}
-  ul{list-style:none;}
-  img{max-width:100%;display:block;}
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-  .mono{font-family:'JetBrains Mono',monospace;}
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/favicon.png" rel="apple-touch-icon">
 
-  ::selection{background:var(--accent);color:#fff;}
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  /* ---------- reveal animation ---------- */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
-  .reveal.in-view{opacity:1;transform:translateY(0);}
-  .reveal-stagger.in-view > *{opacity:1;transform:translateY(0);}
-  .reveal-stagger > *{opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
-  .reveal-stagger.in-view > *:nth-child(1){transition-delay:.05s;}
-  .reveal-stagger.in-view > *:nth-child(2){transition-delay:.14s;}
-  .reveal-stagger.in-view > *:nth-child(3){transition-delay:.23s;}
-  .reveal-stagger.in-view > *:nth-child(4){transition-delay:.32s;}
-  .reveal-stagger.in-view > *:nth-child(5){transition-delay:.41s;}
-  .reveal-stagger.in-view > *:nth-child(6){transition-delay:.50s;}
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  @media (prefers-reduced-motion: reduce){
-    .reveal,.reveal-stagger > *{opacity:1 !important;transform:none !important;transition:none !important;}
-    *{scroll-behavior:auto !important;}
-  }
-
-  /* ---------- layout shell ---------- */
-  .shell{display:flex;min-height:100vh;}
-
-  /* ---------- sidebar ---------- */
-  .sidebar{
-    width:var(--sidebar-w);
-    flex-shrink:0;
-    background:var(--surface);
-    border-right:1px solid var(--border);
-    padding:28px 22px;
-    position:sticky;top:0;height:100vh;
-    display:flex;flex-direction:column;
-    z-index:30;
-  }
-  .brand{
-    display:flex;align-items:center;gap:10px;
-    font-family:'Sora',sans-serif;font-weight:700;font-size:16px;
-    margin-bottom:34px;
-  }
-  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--post);
-    box-shadow:0 0 0 4px var(--post-soft);animation:pulse 2.4s infinite;}
-  @keyframes pulse{
-    0%,100%{box-shadow:0 0 0 4px var(--post-soft);}
-    50%{box-shadow:0 0 0 7px transparent;}
-  }
-  .nav-label{
-    font-family:'JetBrains Mono',monospace;font-size:10.5px;
-    color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
-    margin-bottom:10px;
-  }
-  .endpoint-nav li{margin-bottom:4px;}
-  .endpoint-nav a{
-    display:flex;align-items:center;gap:8px;
-    padding:9px 10px;border-radius:7px;
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;
-    color:var(--muted);
-    transition:background .15s, color .15s;
-  }
-  .endpoint-nav a:hover{background:var(--surface-alt);color:var(--ink);}
-  .method{
-    font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;flex-shrink:0;
-    min-width:34px;text-align:center;
-  }
-  .method.get{color:var(--get);background:var(--get-soft);}
-  .method.post{color:var(--post);background:var(--post-soft);}
-
-  .sidebar-footer{
-    margin-top:auto;padding-top:20px;border-top:1px solid var(--border);
-    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
-  }
-
-  /* mobile topbar */
-  .topbar{display:none;}
-  @media (max-width:900px){
-    .sidebar{
-      position:fixed;left:0;top:0;bottom:0;
-      transform:translateX(-100%);
-      transition:transform .25s ease;
-      box-shadow:0 0 40px rgba(0,0,0,0.15);
-    }
-    .sidebar.open{transform:translateX(0);}
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;
-      position:sticky;top:0;z-index:20;
-      background:rgba(247,248,250,0.9);backdrop-filter:blur(8px);
-      border-bottom:1px solid var(--border);
-      padding:16px 20px;
-    }
-    .topbar .brand{margin:0;}
-    .menu-btn{
-      background:var(--surface);border:1px solid var(--border);
-      width:38px;height:38px;border-radius:8px;cursor:pointer;
-    }
-    .menu-btn span{display:block;width:15px;height:1.6px;background:var(--ink);margin:3.5px auto;}
-    .overlay{
-      display:none;position:fixed;inset:0;background:rgba(20,24,31,0.35);z-index:25;
-    }
-    .overlay.show{display:block;}
-  }
-
-  /* ---------- main content ---------- */
-  main{flex:1;min-width:0;padding:56px 48px 90px;max-width:920px;}
-  @media (max-width:900px){main{padding:36px 22px 70px;}}
-
-  .status-chip{
-    display:inline-flex;align-items:center;gap:7px;
-    font-family:'JetBrains Mono',monospace;font-size:12px;
-    background:var(--post-soft);color:var(--post);
-    padding:5px 12px;border-radius:20px;margin-bottom:22px;
-  }
-  .status-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--post);}
-
-  .hero{padding-bottom:10px;}
-  .hero-row{display:flex;gap:36px;align-items:center;flex-wrap:wrap;}
-  .avatar-wrap{position:relative;flex-shrink:0;}
-  .avatar{
-    width:132px;height:132px;border-radius:50%;
-    background:linear-gradient(135deg, var(--accent), #7C4DFF);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Sora',sans-serif;font-weight:700;font-size:42px;color:#fff;
-    border:4px solid var(--surface);
-    box-shadow:0 8px 30px rgba(61,90,254,0.25);
-    overflow:hidden;
-  }
-  .avatar img{width:100%;height:100%;object-fit:cover;display:none;}
-  .avatar-badge{
-    position:absolute;bottom:2px;right:2px;
-    background:var(--post);color:#fff;
-    width:26px;height:26px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    border:3px solid var(--surface);font-size:13px;
-  }
-
-  h1{
-    font-family:'Sora',sans-serif;font-weight:800;
-    font-size:clamp(32px,5vw,46px);letter-spacing:-0.01em;
-    margin-bottom:8px;
-  }
-  .role{
-    font-family:'JetBrains Mono',monospace;color:var(--accent);
-    font-size:15px;margin-bottom:14px;
-  }
-  .role .caret{display:inline-block;width:9px;height:17px;background:var(--accent);
-    margin-left:2px;vertical-align:-3px;animation:blink 1s steps(1) infinite;}
-  @keyframes blink{50%{opacity:0;}}
-
-  .hero p.desc{color:var(--muted);max-width:60ch;margin-top:14px;}
-
-  .contact-mini{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px;}
-  .contact-mini a, .contact-mini button{
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;
-    border:1px solid var(--border);background:var(--surface);
-    padding:9px 14px;border-radius:8px;color:var(--ink);
-    display:inline-flex;align-items:center;gap:6px;cursor:pointer;
-    transition:border-color .2s, color .2s, transform .15s;
-  }
-  .contact-mini a:hover, .contact-mini button:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
-
-  /* ---------- endpoint / section card ---------- */
-  .endpoint-block{margin-top:74px;}
-  .endpoint-header{
-    display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap;
-  }
-  .endpoint-path{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--muted);}
-  .endpoint-title{
-    font-family:'Sora',sans-serif;font-weight:700;font-size:26px;margin:10px 0 22px;
-  }
-  .card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:26px;
-  }
-
-  /* about */
-  .about-card p{color:var(--muted);max-width:66ch;}
-  .about-card p + p{margin-top:12px;}
-
-  /* skills */
-  .skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  @media (max-width:700px){.skill-groups{grid-template-columns:1fr 1fr;}}
-  @media (max-width:480px){.skill-groups{grid-template-columns:1fr;}}
-  .skill-group{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
-  .skill-group h4{
-    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
-    letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;
-  }
-  .chip-row{display:flex;flex-wrap:wrap;gap:7px;}
-  .chip{
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;
-    background:var(--accent-soft);color:var(--accent);
-    padding:5px 10px;border-radius:6px;
-  }
-
-  /* projects */
-  .proj-list{display:flex;flex-direction:column;gap:18px;}
-  .proj-card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:24px 26px;transition:box-shadow .2s, transform .2s, border-color .2s;
-  }
-  .proj-card:hover{box-shadow:0 10px 30px rgba(20,24,31,0.06);transform:translateY(-3px);border-color:#d7dce4;}
-  .proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;}
-  .proj-top h3{font-family:'Sora',sans-serif;font-size:19px;font-weight:700;}
-  .proj-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap;}
-  .proj-card p{color:var(--muted);margin:10px 0 14px;font-size:14.5px;}
-  .proj-card ul{margin-left:0;}
-  .proj-card ul li{
-    color:var(--muted);font-size:14px;padding-left:16px;position:relative;margin-bottom:5px;
-  }
-  .proj-card ul li::before{content:"—";position:absolute;left:0;color:var(--accent);}
-  .status-code{
-    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
-    background:var(--post-soft);color:var(--post);padding:3px 8px;border-radius:5px;
-  }
-
-  /* education / certifications */
-  .timeline-item{
-    display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);
-  }
-  .timeline-item:last-child{border-bottom:none;}
-  .timeline-item .yr{
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
-    min-width:96px;flex-shrink:0;
-  }
-  .timeline-item h4{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px;}
-  .timeline-item p{color:var(--muted);font-size:13.5px;}
-
-  /* contact */
-  .contact-card{
-    background:var(--ink);color:#F7F8FA;border-radius:var(--radius);padding:40px;
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;
-  }
-  .contact-card h3{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px;}
-  .contact-card p{color:#AEB6C4;font-size:14px;max-width:40ch;}
-  .contact-card .btn{
-    font-family:'JetBrains Mono',monospace;font-size:13px;
-    background:var(--accent);color:#fff;padding:13px 22px;border-radius:8px;
-    display:inline-flex;align-items:center;gap:8px;transition:transform .15s;
-  }
-  .contact-card .btn:hover{transform:translateY(-2px);}
-
-  footer{
-    text-align:center;padding:34px 20px;color:var(--muted);
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;
-    border-top:1px solid var(--border);
-  }
-
-  .toast{
-    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;
-    opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:60;
-  }
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-</style>
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
 </head>
-<body>
 
-  <div class="topbar">
-    <div class="brand"><span class="dot"></span>Harshad Rakshe</div>
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-  </div>
-  <div class="overlay" id="overlay"></div>
+<body class="index-page">
 
-  <div class="shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand"><span class="dot"></span>Harshad Rakshe</div>
-      <div class="nav-label">Endpoints</div>
-      <ul class="endpoint-nav">
-        <li><a href="#about"><span class="method get">GET</span>/about</a></li>
-        <li><a href="#skills"><span class="method get">GET</span>/skills</a></li>
-        <li><a href="#projects"><span class="method post">POST</span>/projects</a></li>
-        <li><a href="#education"><span class="method get">GET</span>/education</a></li>
-        <li><a href="#certifications"><span class="method get">GET</span>/certifications</a></li>
-        <li><a href="#contact"><span class="method post">POST</span>/contact</a></li>
+  <!-- Header / Sidebar -->
+  <header id="header" class="header dark-background d-flex flex-column">
+    <i class="header-toggle d-xl-none bi bi-list"></i>
+
+    <div class="profile-img">
+      <img src="assets/img/harshad.jpeg" alt="Harshad Rakshe" class="img-fluid rounded-circle">
+    </div>
+
+    <a href="#hero" class="logo d-flex align-items-center justify-content-center">
+      <h1 class="sitename">Harshad Rakshe</h1>
+    </a>
+    <p class="text-center text-secondary small mb-3">Java Full Stack Developer</p>
+
+    <!-- Social Links -->
+    <div class="social-links text-center">
+      <a href="https://github.com/harshadrakshe" target="_blank" rel="noopener noreferrer" class="github" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://www.linkedin.com/in/harshad-rakshe" target="_blank" rel="noopener noreferrer" class="linkedin" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      <a href="mailto:harshadrakshe28@gmail.com" class="Mail" title="Send Email"><i class="bi bi-envelope"></i></a>
+      <a href="tel:+918459997443" class="phone" title="Call Me"><i class="bi bi-telephone"></i></a>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
+        <li><a href="#about"><i class="bi bi-person navicon"></i>About</a></li>
+        <li><a href="#skills"><i class="bi bi-cpu navicon"></i>Skills</a></li>
+        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i>Education &amp; Profile</a></li>
+        <li><a href="#projects"><i class="bi bi-laptop navicon"></i>Projects</a></li>
+        <li><a href="#certifications"><i class="bi bi-award navicon"></i>Certifications &amp; Papers</a></li>
+        <li><a href="#contact"><i class="bi bi-envelope navicon"></i>Contact</a></li>
       </ul>
-      <div class="sidebar-footer">
-        Pune, Maharashtra<br>Status: 200 OK
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <img src="assets/img/desk.jpg" alt="Developer Workstation" data-aos="fade-in">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <h2>Harshad Rakshe</h2>
+        <p>I'm a <span class="typed" data-typed-items="Java Full Stack Developer,Spring Boot Specialist,RESTful API Engineer,Software Developer,Computer Engineering Graduate">Java Full Stack Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+        <p class="text-light opacity-75 mt-2" style="max-width: 650px;">
+          Java Full Stack Developer with expertise in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, MySQL, HTML, CSS, Bootstrap, and JavaScript. Skilled in developing responsive web applications, building RESTful APIs, and implementing MVC architecture.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-hero-primary"><i class="bi bi-laptop"></i> View Projects</a>
+          <button type="button" class="btn-hero-secondary" data-bs-toggle="modal" data-bs-target="#resumePrintModal"><i class="bi bi-file-earmark-person"></i> View Resume</button>
+          <a href="#contact" class="btn-hero-secondary"><i class="bi bi-envelope"></i> Contact Me</a>
+        </div>
       </div>
-    </aside>
+    </section><!-- /Hero Section -->
 
-    <main>
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About Me</h2>
+        <p>Professional background, technical summary, and core strengths.</p>
+      </div>
 
-      <section class="hero reveal" id="top">
-        <div class="status-chip"><span class="dot"></span>Available for opportunities</div>
-        <div class="hero-row">
-          <div class="avatar-wrap">
-            <div class="avatar" id="avatar">
-              <img src="" alt="Harshad Rakshe" id="avatarImg">
-              <span id="avatarInitials">HR</span>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 align-items-center">
+
+          <div class="col-lg-4" data-aos="fade-right">
+            <div class="about-img-box">
+              <img src="assets/img/harshad.jpeg" alt="Harshad Rakshe" class="img-fluid">
+              <div class="about-badge mt-3">
+                <h5 class="mb-1 fw-bold text-dark">Harshad Rakshe</h5>
+                <p class="text-primary fw-semibold small mb-2">B.E. Computer Engineering (2020 – 2024)</p>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1">
+                  <i class="bi bi-check-circle me-1"></i> Open to Java Full Stack Roles
+                </span>
+              </div>
             </div>
-            <div class="avatar-badge">✓</div>
           </div>
-          <div>
-            <h1>Harshad Rakshe</h1>
-            <div class="role">java-full-stack-developer<span class="caret"></span></div>
-            <p class="desc">Java Full Stack Developer skilled in Spring Boot, Spring MVC, Spring JDBC, and REST APIs, with hands-on experience building responsive web apps backed by MySQL. Comfortable across the stack — from JDBC and servlets to HTML, CSS, Bootstrap, and JavaScript on the frontend.</p>
+
+          <div class="col-lg-8 content" data-aos="fade-left">
+            <h3 class="fw-bold mb-3">Java Full Stack Developer &amp; Computer Engineer</h3>
+            <p class="fst-italic text-secondary mb-3">
+              "Java Full Stack Developer with expertise in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, MySQL, HTML, CSS, Bootstrap, and JavaScript. Skilled in developing responsive web applications, building RESTful APIs, and implementing MVC architecture. Proficient with Git, Maven, Swagger, and Postman."
+            </p>
+            <p class="mb-4">
+              I hold a Bachelor of Engineering in Computer Engineering from <strong>Jaihind College of Engineering, Pune</strong> with a CGPA of <strong>7.66 / 10</strong>. I have practical experience building enterprise web applications, designing RESTful web services, securing endpoints with JWT authentication, and managing relational databases with MySQL. Additionally, I have authored two published peer-reviewed research papers on agricultural drone technologies and presented at a national conference.
+            </p>
+
+            <div class="row mb-4">
+              <div class="col-lg-6">
+                <ul class="list-unstyled">
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Email:</strong>&nbsp;
+                    <a href="mailto:harshadrakshe28@gmail.com" class="text-body-secondary text-break">harshadrakshe28@gmail.com</a>
+                  </li>
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Phone:</strong>&nbsp;
+                    <a href="tel:+918459997443" class="text-body-secondary">+91 8459997443</a>
+                  </li>
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Location:</strong>&nbsp;
+                    <span class="text-body-secondary">Pune, Maharashtra, India</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Degree:</strong>&nbsp;
+                    <span class="text-body-secondary">B.E. Computer Engineering (CGPA: 7.66/10)</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled">
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>College:</strong>&nbsp;
+                    <span class="text-body-secondary">Jaihind College of Engineering, Pune</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Year:</strong>&nbsp;
+                    <span class="text-body-secondary">2020 – 2024</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Core Stack:</strong>&nbsp;
+                    <span class="text-body-secondary">Java, Spring Boot, REST APIs, MySQL</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-center">
+                    <i class="bi bi-chevron-right text-primary me-2"></i>
+                    <strong>Availability:</strong>&nbsp;
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Immediate Joiner / Open to Relocate</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+              <a href="mailto:harshadrakshe28@gmail.com" class="btn btn-primary rounded-pill px-4">
+                <i class="bi bi-send me-1"></i> Hire Me
+              </a>
+              <button type="button" class="btn btn-outline-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#resumePrintModal">
+                <i class="bi bi-file-earmark-text me-1"></i> View Resume
+              </button>
+              <a href="https://github.com/harshadrakshe" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark rounded-pill px-4">
+                <i class="bi bi-github me-1"></i> GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/harshad-rakshe" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="bi bi-linkedin me-1"></i> LinkedIn
+              </a>
+            </div>
+
           </div>
         </div>
-        <div class="contact-mini">
-          <a href="mailto:harshadrakshe28@gmail.com">✉ harshadrakshe28@gmail.com</a>
-          <a href="tel:+918459997443">☎ +91 84599 97443</a>
-          <a href="https://github.com/Harshad7777" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="https://www.linkedin.com/in/harshad-rakshe-019887258/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <button id="copyBtn">⧉ Copy email</button>
+      </div>
+    </section><!-- /About Section -->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section light-background py-5">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-calendar-check"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
+                <span>+</span>
+                <p>Months Project Development</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-journal-code"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Software &amp; Web Projects</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-journal-bookmark-fill"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="2" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Peer-Reviewed Publications</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-award-fill"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="1" data-purecounter-duration="1" class="purecounter"></span>
+                <p>National Conference Presentation</p>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </section>
+      </div>
+    </section><!-- /Stats Section -->
 
-      <section class="endpoint-block reveal" id="about">
-        <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/about</span></div>
-        <h2 class="endpoint-title">About</h2>
-        <div class="card about-card">
-          <p>Java Full Stack Developer with expertise in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, and MySQL, paired with frontend skills in HTML, CSS, Bootstrap, and JavaScript. Focused on building responsive web applications, RESTful APIs, and clean MVC architecture.</p>
-          <p>Proficient with Git, Maven, Swagger, and Postman for version control, builds, and API testing/documentation — comfortable owning a feature from database to browser.</p>
+    <!-- Skills Section -->
+    <section id="skills" class="skills section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Technical Skills</h2>
+        <p>A comprehensive inventory of my technical stack across programming languages, backend frameworks, databases, frontend, and developer tools.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Categorized Skills Grid -->
+        <div class="row g-4 mb-5">
+          <!-- Backend & Programming -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="skill-card">
+              <h4><i class="bi bi-code-square"></i> Programming Languages</h4>
+              <div class="mt-2">
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Java (Core Java)</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> OOP Concepts</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Collections Framework</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Multithreading</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Exception Handling</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> SQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend Frameworks -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="skill-card">
+              <h4><i class="bi bi-gear-wide-connected"></i> Backend Technologies</h4>
+              <div class="mt-2">
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Spring Boot</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Spring MVC</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Spring JDBC</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> RESTful APIs</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Servlets &amp; JSP</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> JDBC</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> MVC Architecture</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> JWT Security</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Database -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="skill-card">
+              <h4><i class="bi bi-database"></i> Database Management</h4>
+              <div class="mt-2">
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> MySQL</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Relational DB Design</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> CRUD Operations</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Complex Queries &amp; Joins</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Schema Modeling</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Data Integrity</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frontend Technologies -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="skill-card">
+              <h4><i class="bi bi-window-fullscreen"></i> Frontend Technologies</h4>
+              <div class="mt-2">
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> HTML5</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> CSS3</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Bootstrap 5</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> JavaScript (ES6+)</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Responsive Web UI</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Cross-Browser Layouts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Platforms -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="skill-card">
+              <h4><i class="bi bi-tools"></i> Tools &amp; Platforms</h4>
+              <div class="mt-2">
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Git &amp; GitHub</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Apache Maven</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Postman</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Swagger UI</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Spring Tool Suite (STS)</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> IntelliJ IDEA</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Eclipse IDE</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> VS Code</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Apache Tomcat</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Netlify &amp; Wix</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Soft Skills -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="skill-card">
+              <h4><i class="bi bi-people"></i> Soft Skills</h4>
+              <div class="mt-2">
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Problem Solving</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Time Management</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Adaptability</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Fast Learner</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Team Collaboration</span>
+                <span class="tech-pill-badge"><i class="bi bi-check-circle-fill"></i> Analytical Thinking</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
 
-      <section class="endpoint-block reveal" id="skills">
-        <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/skills</span></div>
-        <h2 class="endpoint-title">Skills</h2>
-        <div class="skill-groups reveal-stagger">
-          <div class="skill-group">
-            <h4>Languages</h4>
-            <div class="chip-row"><span class="chip">Java</span></div>
-          </div>
-          <div class="skill-group">
-            <h4>Frontend</h4>
-            <div class="chip-row">
-              <span class="chip">HTML5</span><span class="chip">CSS3</span>
-              <span class="chip">Bootstrap</span><span class="chip">JavaScript</span>
+        <!-- Animated Progress Bars -->
+        <h4 class="fw-bold mb-4 text-center">Core Technical Proficiency</h4>
+        <div class="row skills-content skills-animation">
+          <div class="col-lg-6">
+            <div class="progress">
+              <span class="skill"><span>Core Java &amp; OOP Architecture</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><span>Spring Boot, Spring MVC &amp; REST APIs</span> <i class="val">88%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><span>MySQL, Spring JDBC &amp; CRUD Operations</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
           </div>
-          <div class="skill-group">
-            <h4>Backend</h4>
-            <div class="chip-row">
-              <span class="chip">JDBC</span><span class="chip">Servlets</span>
-              <span class="chip">Spring Boot</span><span class="chip">Spring MVC</span>
-              <span class="chip">Spring JDBC</span><span class="chip">REST APIs</span>
+
+          <div class="col-lg-6">
+            <div class="progress">
+              <span class="skill"><span>HTML5, CSS3, Bootstrap 5 &amp; JavaScript</span> <i class="val">92%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
-          </div>
-          <div class="skill-group">
-            <h4>Database</h4>
-            <div class="chip-row"><span class="chip">MySQL</span></div>
-          </div>
-          <div class="skill-group">
-            <h4>Tools</h4>
-            <div class="chip-row">
-              <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Maven</span>
-              <span class="chip">Postman</span><span class="chip">Swagger</span><span class="chip">STS</span>
-              <span class="chip">IntelliJ IDEA</span><span class="chip">Eclipse</span><span class="chip">VS Code</span>
+
+            <div class="progress">
+              <span class="skill"><span>Servlets, JSP &amp; MVC Architecture</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
-          </div>
-          <div class="skill-group">
-            <h4>Soft Skills</h4>
-            <div class="chip-row">
-              <span class="chip">Problem Solving</span><span class="chip">Time Management</span><span class="chip">Adaptability</span>
+
+            <div class="progress">
+              <span class="skill"><span>Git, Postman, Swagger &amp; Maven Tools</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="endpoint-block reveal" id="projects">
-        <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/projects</span></div>
-        <h2 class="endpoint-title">Projects</h2>
-        <div class="proj-list">
+      </div>
+    </section><!-- /Skills Section -->
 
-          <div class="proj-card">
-            <div class="proj-top">
-              <h3>Restaurant Management System</h3>
-              <span class="proj-meta">Individual · 4 months</span>
+    <!-- Resume Section -->
+    <section id="resume" class="resume section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Education &amp; Profile</h2>
+        <p>Academic qualifications, development milestones, and engineering competencies.</p>
+      </div>
+
+      <div class="container">
+        <div class="row">
+
+          <!-- Left Column: Education -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title"><i class="bi bi-mortarboard me-2 text-primary"></i> Academic Education</h3>
+
+            <div class="resume-item">
+              <h4>Bachelor of Engineering (B.E.) in Computer Engineering</h4>
+              <h5>2020 – 2024</h5>
+              <p><em>Jaihind College of Engineering, Kuran, Junnar, Pune</em></p>
+              <div class="mb-2">
+                <span class="badge bg-primary fs-6 px-3 py-1">CGPA: 7.66 / 10</span>
+              </div>
+              <p class="text-secondary small">
+                Completed 4-year undergraduate degree in Computer Engineering. Gained comprehensive theoretical and practical knowledge in Object-Oriented Software Design, Data Structures &amp; Algorithms, Database Management Systems, Operating Systems, Web Technologies, Computer Networks, and Full Stack Application Development.
+              </p>
             </div>
-            <span class="status-code">201 Created</span>
-            <p>End-to-end system for menu, customer, order, billing, and report management.</p>
-            <ul>
-              <li>Built REST APIs and CRUD operations using Spring Boot, Spring JDBC, and MySQL</li>
-              <li>Secured APIs with JWT authentication</li>
-              <li>Tested and documented endpoints with Swagger and Postman</li>
+
+            <div class="resume-item">
+              <h4>Higher Secondary &amp; Technical Foundation</h4>
+              <h5>Pune, Maharashtra</h5>
+              <p><em>Pre-Engineering Secondary &amp; Higher Secondary Education</em></p>
+              <p class="text-secondary small">
+                Built a solid mathematical, logical, and analytical base leading to admission in Computer Engineering. Developed early interest in algorithms, software problem-solving, and web application architecture.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right Column: Engineering Focus -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="resume-title"><i class="bi bi-briefcase me-2 text-primary"></i> Development Profile &amp; Focus</h3>
+
+            <div class="resume-item">
+              <h4>Java Full Stack Developer Focus</h4>
+              <h5>2020 – Present</h5>
+              <p><em>Hands-on Project &amp; Application Development</em></p>
+              <ul>
+                <li>Engineered scalable backend services leveraging Java, Spring Boot, Spring MVC, and Spring JDBC with MySQL database integration.</li>
+                <li>Designed, tested, and documented robust RESTful APIs with JWT authentication using Swagger UI and Postman.</li>
+                <li>Built intuitive, responsive user interfaces using HTML5, CSS3, Bootstrap 5, and JavaScript for seamless cross-device experiences.</li>
+                <li>Demonstrated version control workflows with Git and GitHub, and build automation with Apache Maven.</li>
+              </ul>
+            </div>
+
+            <div class="resume-item">
+              <h4>Academic Research &amp; Publications</h4>
+              <h5>2023 – 2024</h5>
+              <p><em>Precision Agriculture &amp; Drone Image Analysis</em></p>
+              <ul>
+                <li>Authored and published two research papers titled <strong>"Plant Disease Detection Using Drones in Precision Agriculture"</strong> in peer-reviewed international journals (IJARESM &amp; IJSRED).</li>
+                <li>Presented research at the <strong>National Conference on Emerging Trends in Engineering &amp; Sciences (NCETES-JCON2024)</strong> at Jaihind College of Engineering.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /Resume Section -->
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Featured Projects</h2>
+        <p>Real-world web and backend applications demonstrating Spring Boot, REST APIs, JWT authentication, MySQL, and responsive design.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-4">
+
+          <!-- Project 1: Sankalp Restaurant Management System -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-card">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="project-badge"><i class="bi bi-shield-lock me-1"></i> Spring Boot &amp; REST APIs</span>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                  <i class="bi bi-broadcast me-1"></i> Live Operational
+                </span>
+              </div>
+              <h3 class="project-title">Sankalp Restaurant Management System</h3>
+              <p class="text-primary small fw-semibold mb-2"><i class="bi bi-cup-hot me-1"></i> Luxury Fine Dining &amp; Authentic Cuisine Suite</p>
+              <div class="d-flex gap-3 text-secondary small mb-3">
+                <span><i class="bi bi-clock me-1 text-primary"></i><strong>Duration:</strong> 4 Months</span>
+                <span><i class="bi bi-person me-1 text-primary"></i><strong>Team Size:</strong> Individual</span>
+              </div>
+              <p class="project-desc">
+                An enterprise-grade Restaurant Management System developed for <strong>Sankalp Restaurant</strong> (Luxury Fine Dining &amp; Authentic Cuisine) to manage digital live menu catalogs, online table reservations, staff portal operations, customer order processing, automated billing calculations, and financial sales reporting.
+              </p>
+              
+              <ul class="project-highlights">
+                <li><strong>Full-Cycle Management:</strong> Developed modular architecture for digital live menu cataloging, customer orders, automated billing, table reservations, and sales reports.</li>
+                <li><strong>RESTful API Architecture:</strong> Built high-performance REST APIs and CRUD operations using Spring Boot, Spring JDBC, and MySQL database.</li>
+                <li><strong>Security &amp; Portals:</strong> Secured staff portals and endpoints with JSON Web Tokens (JWT) authentication; tested and validated all endpoints with Swagger UI and Postman.</li>
+                <li><strong>Live Deployment:</strong> Successfully deployed and hosted live on custom domain <strong>restaurantms.co.in</strong>.</li>
+              </ul>
+
+              <div class="project-tech">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">Spring Boot</span>
+                <span class="tech-tag">Spring JDBC</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">REST APIs</span>
+                <span class="tech-tag">JWT Security</span>
+                <span class="tech-tag">Swagger UI</span>
+                <span class="tech-tag">Postman</span>
+                <span class="tech-tag">Maven</span>
+              </div>
+
+              <div class="project-actions d-flex flex-wrap gap-2 align-items-center">
+                <a href="https://restaurantms.co.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill px-4">
+                  <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo (restaurantms.co.in)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: To-Do List Web Application -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-card">
+              <span class="project-badge"><i class="bi bi-diagram-3 me-1"></i> Java MVC Architecture</span>
+              <h3 class="project-title">To-Do List Web Application</h3>
+              <div class="d-flex gap-3 text-secondary small mb-3">
+                <span><i class="bi bi-clock me-1 text-primary"></i><strong>Duration:</strong> 1 Month</span>
+                <span><i class="bi bi-person me-1 text-primary"></i><strong>Team Size:</strong> Individual</span>
+              </div>
+              <p class="project-desc">
+                A task management web application engineered with clean Java MVC pattern to allow users to efficiently organize, track, update, and manage daily tasks with database persistence.
+              </p>
+              
+              <ul class="project-highlights">
+                <li><strong>Layered MVC Architecture:</strong> Decoupled application flow using Java Servlets as Controllers, JSP with Bootstrap as Views, and JDBC DAOs as Models.</li>
+                <li><strong>Database Persistence:</strong> Implemented robust CRUD operations with JDBC connected to a relational MySQL database.</li>
+                <li><strong>Server Deployment:</strong> Configured and deployed the application on Apache Tomcat application server.</li>
+                <li><strong>Interactive UX:</strong> Added dynamic task status toggling (Pending / Completed), date deadlines, and clean layout.</li>
+              </ul>
+
+              <div class="project-tech">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">Servlets</span>
+                <span class="tech-tag">JSP</span>
+                <span class="tech-tag">JDBC</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Apache Tomcat</span>
+                <span class="tech-tag">MVC Architecture</span>
+                <span class="tech-tag">Bootstrap 5</span>
+              </div>
+
+              <div class="project-actions">
+                <span class="badge bg-secondary-subtle text-secondary border px-3 py-2">
+                  <i class="bi bi-server me-1"></i> Apache Tomcat Deployed
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Personal Portfolio Website -->
+          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="project-card">
+              <span class="project-badge"><i class="bi bi-globe me-1"></i> Responsive Frontend Design</span>
+              <h3 class="project-title">Personal Portfolio Website</h3>
+              <div class="d-flex gap-3 text-secondary small mb-3">
+                <span><i class="bi bi-clock me-1 text-primary"></i><strong>Duration:</strong> 2 Weeks</span>
+                <span><i class="bi bi-person me-1 text-primary"></i><strong>Team Size:</strong> Individual</span>
+              </div>
+              <p class="project-desc">
+                Designed and developed high-performance, fully responsive personal portfolio websites to present professional skills, project case studies, research papers, verified certificates, and contact channels.
+              </p>
+              
+              <ul class="project-highlights">
+                <li><strong>Modern Mobile-First UI:</strong> Crafted clean, responsive layouts using HTML5, CSS3, and Bootstrap 5 optimized for desktops, tablets, and smartphones.</li>
+                <li><strong>Interactive Features:</strong> Integrated animated typewriter headers, filterable credential galleries with GLightbox image zoom, and interactive contact actions.</li>
+                <li><strong>Production Hosting:</strong> Deployed and maintained live instances across Netlify and GitHub Pages (github.io).</li>
+              </ul>
+
+              <div class="project-tech">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">Bootstrap 5</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Netlify</span>
+                <span class="tech-tag">GitHub Pages</span>
+                <span class="tech-tag">Wix</span>
+              </div>
+
+              <div class="project-actions">
+                <a href="#hero" class="btn btn-outline-primary rounded-pill px-4">
+                  <i class="bi bi-eye me-1"></i> Explore Current Site
+                </a>
+                <a href="https://github.com/harshadrakshe" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark rounded-pill px-4">
+                  <i class="bi bi-github me-1"></i> GitHub Profile
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /Projects Section -->
+
+    <!-- Certifications & Publications Section -->
+    <section id="certifications" class="portfolio section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Certifications &amp; Publications</h2>
+        <p>Verified professional certifications, international peer-reviewed research publications, and national conference presentations.</p>
+      </div>
+
+      <div class="container">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+          <!-- Category Filters -->
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All Credentials</li>
+            <li data-filter=".filter-research">Research Publications</li>
+            <li data-filter=".filter-cert">Certifications</li>
+            <li data-filter=".filter-conf">Conferences</li>
+          </ul>
+
+          <!-- Gallery Items -->
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <!-- 1. IJARESM Research Publication -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-research">
+              <div class="portfolio-content h-100">
+                <div class="img-wrapper">
+                  <img src="assets/img/portfolio/pub-ijaresm.png" class="img-fluid" alt="IJARESM Research Publication - Harshad Rakshe">
+                </div>
+                <div class="portfolio-info">
+                  <span class="badge bg-primary-subtle text-primary mb-2">Research Publication</span>
+                  <h4>Plant Disease Detection Using Drones in Precision Agriculture</h4>
+                  <p>Published in International Journal IJARESM (Impact Factor: 8.536, Vol 12 Issue 5, May 2024)</p>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="cert-meta"><i class="bi bi-journal-check text-primary me-1"></i> UGC No: 7647 | ISO Certified</span>
+                    <a href="assets/img/portfolio/pub-ijaresm.png" data-gallery="portfolio-gallery" class="glightbox preview-link" title="IJARESM Publication: Plant Disease Detection Using Drones in Precision Agriculture - Harshad T. Rakshe"><i class="bi bi-zoom-in"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. IJSRED Research Publication -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-research">
+              <div class="portfolio-content h-100">
+                <div class="img-wrapper">
+                  <img src="assets/img/portfolio/pub-ijsred.png" class="img-fluid" alt="IJSRED Research Publication - Harshad Rakshe">
+                </div>
+                <div class="portfolio-info">
+                  <span class="badge bg-primary-subtle text-primary mb-2">Research Publication</span>
+                  <h4>Plant Disease Detection Using Drones in Precision Agriculture</h4>
+                  <p>Published in International Journal IJSRED (Impact Factor: 5.49, Vol 6 Issue 6, Nov-Dec 2023)</p>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="cert-meta"><i class="bi bi-star-fill text-warning me-1"></i> Paper ID: IJSRED-V6I6P103</span>
+                    <a href="assets/img/portfolio/pub-ijsred.png" data-gallery="portfolio-gallery" class="glightbox preview-link" title="IJSRED Publication: Plant Disease Detection Using Drones in Precision Agriculture - Harshad Rakshe"><i class="bi bi-zoom-in"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. NCETES National Conference Certificate -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-conf">
+              <div class="portfolio-content h-100">
+                <div class="img-wrapper">
+                  <img src="assets/img/portfolio/cert-ncetes-conference.jpeg" class="img-fluid" alt="NCETES National Conference Presentation - Harshad Rakshe">
+                </div>
+                <div class="portfolio-info">
+                  <span class="badge bg-success-subtle text-success mb-2">Conference Presentation</span>
+                  <h4>NCETES-JCON2024 National Conference</h4>
+                  <p>Presented research on Plant Disease Detection Using Drones at Jaihind College of Engineering (March 2024)</p>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="cert-meta"><i class="bi bi-award-fill text-success me-1"></i> Paper Presentation Certificate</span>
+                    <a href="assets/img/portfolio/cert-ncetes-conference.jpeg" data-gallery="portfolio-gallery" class="glightbox preview-link" title="National Conference NCETES-JCON2024 Certificate - Rakshe Harshad Tulshiram"><i class="bi bi-zoom-in"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Skill Vertex Web Development Certification -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-cert">
+              <div class="portfolio-content h-100">
+                <div class="img-wrapper">
+                  <img src="assets/img/portfolio/cert-skillvertex.png" class="img-fluid" alt="Skill Vertex Web Development Certification">
+                </div>
+                <div class="portfolio-info">
+                  <span class="badge bg-warning-subtle text-warning-emphasis mb-2">Technical Training</span>
+                  <h4>Web Development Certification</h4>
+                  <p>Skill Vertex Certificate of Training Completion in Web Development (Feb 2023 – Mar 2023)</p>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="cert-meta"><i class="bi bi-patch-check-fill text-primary me-1"></i> UIN: SV228125 | RA228625</span>
+                    <a href="assets/img/portfolio/cert-skillvertex.png" data-gallery="portfolio-gallery" class="glightbox preview-link" title="Skill Vertex Web Development Certificate - Harshad"><i class="bi bi-zoom-in"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Coursera Business Analysis Certification -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-cert">
+              <div class="portfolio-content h-100">
+                <div class="img-wrapper">
+                  <img src="assets/img/portfolio/cert-coursera.png" class="img-fluid" alt="Coursera Business Analysis Certification">
+                </div>
+                <div class="portfolio-info">
+                  <span class="badge bg-info-subtle text-info-emphasis mb-2">Coursera Verified</span>
+                  <h4>Business Analysis &amp; Process Management</h4>
+                  <p>Authorized online project certification offered through Coursera Project Network</p>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="cert-meta"><i class="bi bi-check-circle-fill text-success me-1"></i> Verify: SDQJ61Y7IJFO</span>
+                    <a href="assets/img/portfolio/cert-coursera.png" data-gallery="portfolio-gallery" class="glightbox preview-link" title="Coursera Certificate: Business Analysis & Process Management - Harshad Tulshiram Rakshe"><i class="bi bi-zoom-in"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /row isotope-container -->
+        </div><!-- /isotope-layout -->
+      </div>
+    </section><!-- /Certifications Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact Me</h2>
+        <p>I am actively seeking an entry-level Java Full Stack Developer role in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, and MySQL. Let's discuss how I can contribute to your team!</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+
+          <!-- Contact Details & Map -->
+          <div class="col-lg-5">
+            <div class="info-wrap p-4 bg-white rounded-3 shadow-sm border">
+
+              <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-geo-alt"></i>
+                <div>
+                  <h5 class="fw-bold mb-1">Location</h5>
+                  <p class="mb-0 text-secondary">Pune, Maharashtra, India</p>
+                </div>
+              </div>
+
+              <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-envelope"></i>
+                <div>
+                  <h5 class="fw-bold mb-1">Email</h5>
+                  <p class="mb-0"><a href="mailto:harshadrakshe28@gmail.com" class="text-primary">harshadrakshe28@gmail.com</a></p>
+                </div>
+              </div>
+
+              <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="400">
+                <i class="bi bi-telephone"></i>
+                <div>
+                  <h5 class="fw-bold mb-1">Phone</h5>
+                  <p class="mb-0"><a href="tel:+918459997443" class="text-primary">+91 8459997443</a></p>
+                </div>
+              </div>
+
+              <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="500">
+                <i class="bi bi-linkedin"></i>
+                <div>
+                  <h5 class="fw-bold mb-1">LinkedIn</h5>
+                  <p class="mb-0"><a href="https://www.linkedin.com/in/harshad-rakshe" target="_blank" rel="noopener noreferrer" class="text-primary">linkedin.com/in/harshad-rakshe</a></p>
+                </div>
+              </div>
+
+              <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="600">
+                <i class="bi bi-github"></i>
+                <div>
+                  <h5 class="fw-bold mb-1">GitHub</h5>
+                  <p class="mb-0"><a href="https://github.com/harshadrakshe" target="_blank" rel="noopener noreferrer" class="text-primary">github.com/harshadrakshe</a></p>
+                </div>
+              </div>
+
+              <!-- Google Map Embed of Pune -->
+              <div class="mt-3 overflow-hidden rounded-3 border">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242118.17005851687!2d73.6981553041223!3d18.52454504095413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1739038416341!5m2!1sen!2sin" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="col-lg-7">
+            <div class="p-4 bg-white rounded-3 shadow-sm border h-100" data-aos="fade-up" data-aos-delay="200">
+              <h4 class="fw-bold mb-3">Send a Message</h4>
+              <p class="text-secondary small mb-4">Fill in your inquiry below to compose an email directly to me, or use the quick action buttons.</p>
+
+              <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                <div class="row gy-3">
+                  <div class="col-md-6">
+                    <label for="contact-name" class="form-label fw-semibold small">Your Name</label>
+                    <input type="text" id="contact-name" name="name" class="form-control" placeholder="Recruiter / Hiring Manager" required>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="contact-email" class="form-label fw-semibold small">Your Email</label>
+                    <input type="email" id="contact-email" name="email" class="form-control" placeholder="hr@company.com" required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <label for="contact-subject" class="form-label fw-semibold small">Subject</label>
+                    <input type="text" id="contact-subject" name="subject" class="form-control" placeholder="Interview Opportunity: Java Full Stack Developer" required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <label for="contact-message" class="form-label fw-semibold small">Message</label>
+                    <textarea id="contact-message" name="message" class="form-control" rows="6" placeholder="Hi Harshad, We reviewed your portfolio and would like to discuss an opportunity..." required></textarea>
+                  </div>
+
+                  <div class="col-md-12 text-center mt-3">
+                    <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 fw-semibold">
+                      <i class="bi bi-send me-2"></i> Send Message
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Quick Action Bar -->
+              <div class="mt-4 pt-3 border-top text-center">
+                <p class="text-secondary small mb-2">Quick contact options:</p>
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+                  <a href="mailto:harshadrakshe28@gmail.com" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                    <i class="bi bi-envelope me-1"></i> Open in Email Client
+                  </a>
+                  <a href="tel:+918459997443" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                    <i class="bi bi-telephone me-1"></i> Call Directly
+                  </a>
+                  <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="copyToClipboard('harshadrakshe28@gmail.com', 'Email copied: harshadrakshe28@gmail.com')">
+                    <i class="bi bi-clipboard me-1"></i> Copy Email
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="copyToClipboard('+918459997443', 'Phone copied: +91 8459997443')">
+                    <i class="bi bi-telephone me-1"></i> Copy Phone
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background border-top py-4">
+    <div class="container">
+      <div class="copyright text-center">
+        <p class="mb-1">&copy; <strong><span>Harshad Rakshe</span></strong>. All Rights Reserved.</p>
+        <div class="credits text-secondary small">
+          Java Full Stack Developer | Pune, Maharashtra | Designed with HTML5, CSS3, &amp; Bootstrap 5
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Resume Preview & Print Modal -->
+  <div class="modal fade" id="resumePrintModal" tabindex="-1" aria-labelledby="resumeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title" id="resumeModalLabel"><i class="bi bi-file-earmark-person me-2"></i>Harshad Rakshe - Resume</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 bg-light">
+          <!-- Printable / Downloadable Resume Paper Container -->
+          <div id="resumeModalPaper" class="resume-modal-paper shadow-sm">
+            <!-- Header -->
+            <div class="resume-modal-header text-center">
+              <h2 class="fw-bold mb-1">Harshad Rakshe</h2>
+              <p class="mb-2 text-secondary">
+                Pune, Maharashtra | <a href="tel:+918459997443" class="text-decoration-none text-dark">+91 8459997443</a> | <a href="mailto:harshadrakshe28@gmail.com" class="text-decoration-none text-dark">harshadrakshe28@gmail.com</a>
+              </p>
+              <div>
+                <a href="https://www.linkedin.com/in/harshad-rakshe" target="_blank" class="badge bg-primary text-decoration-none me-1"><i class="bi bi-linkedin me-1"></i> LinkedIn</a>
+                <a href="https://github.com/harshadrakshe" target="_blank" class="badge bg-dark text-decoration-none"><i class="bi bi-github me-1"></i> GitHub</a>
+              </div>
+            </div>
+
+            <!-- About Me -->
+            <h5 class="resume-section-title">About Me</h5>
+            <p class="small text-secondary mb-3">
+              Java Full Stack Developer with expertise in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, MySQL, HTML, CSS, Bootstrap, and JavaScript. Skilled in developing responsive web applications, building RESTful APIs, and implementing MVC architecture. Proficient with Git, Maven, Swagger, and Postman.
+            </p>
+
+            <!-- Education -->
+            <h5 class="resume-section-title">Education</h5>
+            <div class="resume-paper-item">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h5>Bachelor of Engineering (B.E.) in Computer Engineering</h5>
+                <span class="badge bg-secondary">2020 – 2024</span>
+              </div>
+              <div class="meta text-primary fw-semibold">Jaihind College of Engineering, Kuran, Junnar, Pune | CGPA: 7.66 / 10</div>
+            </div>
+
+            <!-- Technical Skills -->
+            <h5 class="resume-section-title">Technical Skills</h5>
+            <div class="small mb-3">
+              <p class="mb-1"><strong>Programming Languages:</strong> Java</p>
+              <p class="mb-1"><strong>Frontend:</strong> HTML5, CSS3, Bootstrap, JavaScript</p>
+              <p class="mb-1"><strong>Backend:</strong> JDBC, Servlets, Spring Boot, Spring MVC, Spring JDBC, REST APIs</p>
+              <p class="mb-1"><strong>Database:</strong> MySQL</p>
+              <p class="mb-1"><strong>Tools:</strong> Git, GitHub, Maven, Postman, Swagger, Spring Tool Suite (STS), IntelliJ IDEA, Eclipse, VS Code</p>
+              <p class="mb-0"><strong>Soft Skills:</strong> Problem Solving, Time Management, Adaptability</p>
+            </div>
+
+            <!-- Projects -->
+            <h5 class="resume-section-title">Projects</h5>
+            
+            <div class="resume-paper-item">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h5>Sankalp Restaurant Management System</h5>
+                <span class="small text-secondary">Duration: 4 Months | Team: Individual</span>
+              </div>
+              <div class="meta">Technologies: Java, Spring Boot, Spring JDBC, MySQL, REST APIs, JWT, Swagger, Maven, Postman | <a href="https://restaurantms.co.in/" target="_blank" class="text-primary fw-bold text-decoration-none"><i class="bi bi-box-arrow-up-right me-1"></i>Live: restaurantms.co.in</a></div>
+              <ul class="small text-secondary mb-3">
+                <li>Developed a Restaurant Management System for Sankalp Restaurant covering menu, customer, order, billing, and report management.</li>
+                <li>Built REST APIs and CRUD operations using Spring Boot, Spring JDBC, and MySQL.</li>
+                <li>Secured APIs with JWT and tested using Swagger and Postman.</li>
+              </ul>
+            </div>
+
+            <div class="resume-paper-item">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h5>To-Do List Web Application</h5>
+                <span class="small text-secondary">Duration: 1 Month | Team: Individual</span>
+              </div>
+              <div class="meta">Technologies: Java, Servlets, JSP, JDBC, MySQL, Apache Tomcat</div>
+              <ul class="small text-secondary mb-3">
+                <li>Developed a task management web application using Java Servlets and JSP.</li>
+                <li>Implemented CRUD operations with JDBC and MySQL.</li>
+                <li>Deployed the application on Apache Tomcat following MVC architecture.</li>
+              </ul>
+            </div>
+
+            <div class="resume-paper-item">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h5>Personal Portfolio Website</h5>
+                <span class="small text-secondary">Duration: 2 Weeks | Team: Individual</span>
+              </div>
+              <div class="meta">Technologies: HTML, CSS, Bootstrap, JavaScript, Netlify, Wix</div>
+              <ul class="small text-secondary mb-0">
+                <li>Developed responsive portfolio websites showcasing skills, projects, and resume.</li>
+                <li>Designed a responsive UI and deployed on Netlify and github.io.</li>
+              </ul>
+            </div>
+
+            <!-- Certifications & Publications -->
+            <h5 class="resume-section-title">Certifications &amp; Publications</h5>
+            <ul class="small text-secondary mb-0">
+              <li class="mb-1"><strong>Web Development Certification</strong> – Skill Vertex (Feb 2023 – Mar 2023)</li>
+              <li class="mb-1"><strong>Research Paper:</strong> Plant Disease Detection Using Drones in Precision Agriculture – IJARESM (May 2024)</li>
+              <li class="mb-1"><strong>Research Paper:</strong> Plant Disease Detection Using Drones in Precision Agriculture – IJSRED (Nov - Dec 2023)</li>
+              <li><strong>Conference:</strong> National Conference on Emerging Trends in Engineering &amp; Sciences (NCETES-JCON2024)</li>
             </ul>
-            <div class="chip-row" style="margin-top:14px;">
-              <span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring JDBC</span>
-              <span class="chip">MySQL</span><span class="chip">JWT</span><span class="chip">Swagger</span><span class="chip">Maven</span>
-            </div>
-          </div>
 
-          <div class="proj-card">
-            <div class="proj-top">
-              <h3>To-Do List Web Application</h3>
-              <span class="proj-meta">Individual · 1 month</span>
-            </div>
-            <span class="status-code">201 Created</span>
-            <p>Task management web app following MVC architecture, deployed on Apache Tomcat.</p>
-            <ul>
-              <li>Built with Java Servlets and JSP</li>
-              <li>Implemented CRUD operations with JDBC and MySQL</li>
-              <li>Deployed on Apache Tomcat</li>
-            </ul>
-            <div class="chip-row" style="margin-top:14px;">
-              <span class="chip">Java</span><span class="chip">Servlets</span><span class="chip">JSP</span>
-              <span class="chip">JDBC</span><span class="chip">MySQL</span><span class="chip">Apache Tomcat</span>
-            </div>
-          </div>
-
-          <div class="proj-card">
-            <div class="proj-top">
-              <h3>Personal Portfolio Website</h3>
-              <span class="proj-meta">Individual · 2 weeks</span>
-            </div>
-            <span class="status-code">201 Created</span>
-            <p>Responsive portfolio sites showcasing skills, projects, and resume.</p>
-            <ul>
-              <li>Designed a responsive UI with HTML, CSS, Bootstrap, and JavaScript</li>
-              <li>Deployed on both Netlify and Wix</li>
-            </ul>
-            <div class="chip-row" style="margin-top:14px;">
-              <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Bootstrap</span>
-              <span class="chip">JavaScript</span><span class="chip">Netlify</span><span class="chip">Wix</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <section class="endpoint-block reveal" id="education">
-        <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/education</span></div>
-        <h2 class="endpoint-title">Education</h2>
-        <div class="card">
-          <div class="timeline-item">
-            <div class="yr">2020 – 2024</div>
-            <div>
-              <h4>Bachelor of Engineering, Computer Engineering</h4>
-              <p>Jaihind College of Engineering, Kuran, Junnar, Pune · CGPA 7.66/10</p>
-            </div>
           </div>
         </div>
-      </section>
-
-      <section class="endpoint-block reveal" id="certifications">
-        <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/certifications</span></div>
-        <h2 class="endpoint-title">Certifications &amp; Publications</h2>
-        <div class="card">
-          <div class="timeline-item">
-            <div class="yr">Feb – Mar 2023</div>
-            <div>
-              <h4>Web Development Certification</h4>
-              <p>Skill Vertex</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="yr">May 2024</div>
-            <div>
-              <h4>Plant Disease Detection Using Drones in Precision Agriculture</h4>
-              <p>Research Paper — IJARESM</p>
-            </div>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-primary rounded-pill px-4" onclick="downloadResumePDF()">
+            <i class="bi bi-download me-1"></i> Download PDF
+          </button>
+          <button type="button" class="btn btn-primary rounded-pill px-4" onclick="window.print()">
+            <i class="bi bi-printer me-1"></i> Print
+          </button>
         </div>
-      </section>
-
-      <section class="endpoint-block reveal" id="contact">
-        <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/contact</span></div>
-        <h2 class="endpoint-title">Contact</h2>
-        <div class="contact-card">
-          <div>
-            <h3>Let's work together.</h3>
-            <p>Based in Pune, Maharashtra — open to full-stack and backend roles.</p>
-          </div>
-          <a class="btn" href="mailto:harshadrakshe28@gmail.com">Send a message →</a>
-        </div>
-      </section>
-
-      <footer>© 2026 Harshad Rakshe · Built with care</footer>
-    </main>
+      </div>
+    </div>
   </div>
 
-  <div class="toast" id="toast">Email copied to clipboard</div>
+  <!-- Copy Toast Notification -->
+  <div id="copy-toast">
+    <i class="bi bi-check-circle-fill"></i>
+    <span id="copy-toast-msg">Copied to clipboard!</span>
+  </div>
 
-<script>
-  // mobile sidebar toggle
-  const menuBtn = document.getElementById('menuBtn');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-  function closeMenu(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
-  menuBtn?.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('show');
-  });
-  overlay?.addEventListener('click', closeMenu);
-  document.querySelectorAll('.endpoint-nav a').forEach(a => a.addEventListener('click', closeMenu));
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  // scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('in-view');
-    });
-  }, { threshold: 0.15 });
-document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+  <!-- Preloader -->
+  <div id="preloader"></div>
 
-  // copy email
-  const copyBtn = document.getElementById('copyBtn');
-  const toast = document.getElementById('toast');
-  copyBtn?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText('harshadrakshe28@gmail.com');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 1800);
-    } catch (e) {}
-  });
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  // photo swap helper: if avatarImg has a valid src, show it and hide initials
-  const avatarImg = document.getElementById('avatarImg');
-  const avatarInitials = document.getElementById('avatarInitials');
-  if (avatarImg.getAttribute('src')) {
-    avatarImg.onload = () => { avatarImg.style.display = 'block'; avatarInitials.style.display = 'none'; };
-  }
-</script>
+  <!-- html2pdf for direct clean PDF download (No browser headers/footers) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Contact Form & Utility Scripts -->
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      var name = document.getElementById('contact-name').value;
+      var email = document.getElementById('contact-email').value;
+      var subject = document.getElementById('contact-subject').value;
+      var message = document.getElementById('contact-message').value;
+
+      var fullBody = "Name: " + name + "\n" +
+                     "Sender Email: " + email + "\n\n" +
+                     "Message:\n" + message;
+
+      var mailtoUrl = "mailto:harshadrakshe28@gmail.com" +
+                      "?subject=" + encodeURIComponent(subject) +
+                      "&body=" + encodeURIComponent(fullBody);
+
+      window.location.href = mailtoUrl;
+    }
+
+    function copyToClipboard(text, message) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+          showToast(message);
+        }).catch(function() {
+          fallbackCopyText(text, message);
+        });
+      } else {
+        fallbackCopyText(text, message);
+      }
+    }
+
+    function fallbackCopyText(text, message) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast(message);
+      } catch (err) {
+        alert(text);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function showToast(message) {
+      var toast = document.getElementById('copy-toast');
+      var toastMsg = document.getElementById('copy-toast-msg');
+      if (toast && toastMsg) {
+        toastMsg.textContent = message;
+        toast.classList.add('show');
+        setTimeout(function() {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+    }
+
+    // Direct clean PDF download without browser file path or URL at bottom
+    function downloadResumePDF() {
+      var element = document.getElementById('resumeModalPaper');
+      if (!element) return;
+      
+      showToast('Generating clean PDF resume...');
+
+      var opt = {
+        margin:       [8, 8, 8, 8],
+        filename:     'Harshad_Rakshe_Resume.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, letterRendering: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      if (window.html2pdf) {
+        html2pdf().set(opt).from(element).save().then(function() {
+          showToast('Resume downloaded successfully!');
+        }).catch(function(err) {
+          window.print();
+        });
+      } else {
+        window.print();
+      }
+    }
+  </script>
 
 </body>
+
 </html>
